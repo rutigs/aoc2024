@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, HashSet}, fs::File, io::{BufRead, BufReader}};
+use std::{collections::HashMap, fs::File, io::{BufRead, BufReader}};
 
 fn main() {
     let file = File::open("../inputs/day6.txt");
@@ -53,8 +53,6 @@ fn main() {
 
             let mut seen = 1;
             let mut tmp_map = patrol_map.clone();
-            let mut seen_map: HashSet<(i32, i32, char)> = HashSet::new();
-            seen_map.insert((start_pos.0, start_pos.1, curr_guard));
             guard_locn = start_pos;
             tmp_map[r][c] = '#';
             curr_guard = '^';
@@ -82,13 +80,6 @@ fn main() {
                 }
 
                 guard_locn = (guard_locn.0 + dir_vectors[&curr_guard].0, guard_locn.1 + dir_vectors[&curr_guard].1);
-                if seen_map.contains(&(guard_locn.0, guard_locn.1, curr_guard)) {
-                    seen = total_squares;
-                    break;
-                } else {
-                    seen_map.insert((guard_locn.0, guard_locn.1, curr_guard));
-                }
-
                 seen += 1;
             }
 
